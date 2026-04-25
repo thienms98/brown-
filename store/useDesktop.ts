@@ -24,6 +24,7 @@ interface DesktopState {
   items: DesktopItem[];
   dragging: DesktopItem | null;
   setDragging: (item: DesktopItem | null) => void;
+  updatePosition: (position: { x: number; y: number }) => void;
   addWindow: (item: DesktopIcon) => void;
 }
 
@@ -39,6 +40,20 @@ export const useDesktop = create<DesktopState>((set) => ({
   dragging: null,
   setDragging(item: DesktopItem | null) {
     set(() => ({ dragging: item }));
+  },
+  updatePosition(position: { x: number; y: number }) {
+    set((state) => {
+      console.log(state.dragging);
+      if (!state.dragging) return {};
+      console.log("update", position);
+
+      return {
+        items: [...state.items].map((i) =>
+          i.id === state.dragging!.id ? { ...i, position } : i
+        ),
+        dragging: null
+      };
+    });
   },
   addWindow(item: DesktopIcon) {
     set((state) => {
