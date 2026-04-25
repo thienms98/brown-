@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-primary: var(--font-grotesk);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +23,29 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.lock-screen.hide {
+  animation: fadeOut 1.5s ease forwards;
+
+  main * {
+    transform: translateY(-100px);
+    transition: transform 1.5s ease;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    display: block;
+  }
+  80% {
+    filter: blur(20px);
+    opacity: 1;
+  }
+  99.99% {
+    opacity: 0;
+  }
+  100% {
+    display: none;
+  }
 }
